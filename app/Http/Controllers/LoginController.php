@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -19,6 +20,17 @@ class LoginController extends Controller
 
     public function storeRegister(Request $request)
     {
+        $input=$request->all();
+        $validator=Validator::make($input,[
+            'name'=>'required|max:255|string',
+            'username' => 'required|alpha_dash|unique:users,username',
+            'email'=>'required|email|unique:users',
+            'password' => 'min:8|required_with:password-confirmation|same:password-confirmation',
+            'password-confirmation' => 'min:8',
+        ]);
+        if($validator->fails()){
+            return redirect('register')->withInput()->withErrors($validator);
+        }
         $user=User::create([
             'name' => $request->name,
             'username' => $request->username,
@@ -36,6 +48,14 @@ class LoginController extends Controller
 
     public function storeLogin(Request $request)
     {
+        $input=$request->all();
+        $validator=Validator::make($input,[
+            'email'=>'required|email',
+            'password' => 'min:8|required',
+        ]);
+        if($validator->fails()){
+            return redirect('login')->withInput()->withErrors($validator);
+        }
         $user=User::where('email', $request->email)->first();
         if($user)
         {
