@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DosenController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,12 +32,24 @@ Route::middleware('auth')->group(function(){
     });
     Route::middleware('is.dosen')->group(function(){
         Route::get('/dosen', function () {
-            return view('dosen');
+            return view('dosen.dosen');
+        });
+        Route::prefix('dosen')->group(function(){
+            Route::get('classes', [DosenController::class, 'showClasses']);
+            Route::post('create-class', [DosenController::class, 'storeClass']);
+            Route::post('{masterClassID}/edit-class', [DosenController::class, 'editClass']);
+            Route::get('{masterClassID}/delete-class', [DosenController::class, 'deleteClass']);
         });
     });
     Route::middleware('is.mahasiswa')->group(function(){
         Route::get('/mahasiswa', function () {
-            return view('mahasiswa');
+            return view('mahasiswa.mahasiswa');
+        });
+        Route::prefix('mahasiswa')->group(function()
+        {
+            Route::get('classes', [MahasiswaController::class, 'showClasses']);
+            Route::get('{masterClassID}/join', [MahasiswaController::class, 'joinClass']);
+            Route::get('class/{masterClassID}', [MahasiswaController::class, 'detailClass']);
         });
     });
 });
