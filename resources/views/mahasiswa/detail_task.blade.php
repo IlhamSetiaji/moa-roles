@@ -44,6 +44,7 @@
                                                         </th>
                                                         <th>Nama Tugas</th>
                                                         <th>Status</th>
+                                                        <th>Grade</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -57,6 +58,9 @@
                                                         </td>
                                                         <td>
                                                             {{ $menteeTasks->status }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $menteeTasks->grade }}
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-primary" href="#" data-toggle="modal"

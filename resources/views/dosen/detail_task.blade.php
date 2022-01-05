@@ -45,6 +45,7 @@
                                                         <th>Nama Mahasiswa</th>
                                                         <th>Nama Tugas</th>
                                                         <th>Status</th>
+                                                        <th>Grade</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -64,7 +65,12 @@
                                                             {{ $item->status }}
                                                         </td>
                                                         <td>
+                                                            {{ $item->grade }}
+                                                        </td>
+                                                        <td>
                                                             <a class="btn btn-primary" href="{{ url('dosen/'.$item->id.'/'.$item->users->id.'/show-files') }}">Lihat List Files</a>
+                                                            <a class="btn btn-success" href="#" data-toggle="modal"
+                                                                data-target="#modalUpdateGrade{{ $item->id }}">Beri Penilaian</a>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -81,6 +87,7 @@
             @include('stisla.footer')
         </div>
     </div>
+    @include('dosen.modal.update_grade')
 @include('stisla.script')
 </body>
 

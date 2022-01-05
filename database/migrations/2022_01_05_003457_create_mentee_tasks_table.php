@@ -18,6 +18,7 @@ class CreateMenteeTasksTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('task_id')->constrained('tasks')->onUpdate('cascade')->onDelete('cascade');
             $table->enum('status',['FINISHED','UNFINISHED'])->default('UNFINISHED');
+            $table->float('grade')->default(0);
             $table->timestamps();
         });
     }

@@ -43,23 +43,29 @@ class MahasiswaController extends Controller
     public function uploadTask(Request $request, $menteeTaskID)
     {
         $user=request()->user();
-        if($request->hasFile('files'))
+        $menteeTask=MenteeTask::where('id',$menteeTaskID)->where('status','UNFINISHED')->where('grade',0)->first();
+        if($menteeTask)
         {
-            foreach($request->file('files') as $file)
+            if($request->hasFile('files'))
             {
-                $nama_file = time()."_".$file->getClientOriginalName();
-                $format_file = $file->getClientOriginalExtension();
-                $file->move(public_path($user->name.'/data_tugas'), $nama_file);
-                $user->mentee_task_files()->attach($menteeTaskID,[
-                    'file_name'=>$nama_file,
-                ]);
+                foreach($request->file('files') as $file)
+                {
+                    $nama_file = time()."_".$file->getClientOriginalName();
+                    $format_file = $file->getClientOriginalExtension();
+                    $file->move(public_path($user->name.'/data_tugas'), $nama_file);
+                    $user->mentee_task_files()->attach($menteeTaskID,[
+                        'file_name'=>$nama_file,
+                    ]);
+                }
             }
+            $menteeTask=MenteeTask::find($menteeTaskID);
+            $menteeTask->update([
+                'status'=>'FINISHED',
+            ]);
+            return redirect()->back()->with('status','File tugas berhasil diupload');
         }
-        $menteeTask=MenteeTask::find($menteeTaskID);
-        $menteeTask->update([
-            'status'=>'FINISHED',
-        ]);
-        return redirect()->back()->with('status','File tugas berhasil diupload');
+        return redirect()->back()->with('status','File sudah diselesaikan');
+        
     }
 
     public function detailTask($taskID)

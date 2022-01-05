@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function(){
             Route::get('classes', [DosenController::class, 'showClasses']);
             Route::post('create-class', [DosenController::class, 'storeClass']);
             Route::post('{masterClassID}/edit-class', [DosenController::class, 'editClass']);
+            Route::post('{menteeTaskID}/{userID}/update-grade', [DosenController::class, 'updateGrade']);
             Route::get('{masterClassID}/delete-class', [DosenController::class, 'deleteClass']);
             Route::get('classes/{masterClassID}/tasks', [DosenController::class, 'showTasks']);
             Route::post('classes/{masterClassID}/tasks', [DosenController::class, 'storeTask']);

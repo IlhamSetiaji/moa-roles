@@ -101,4 +101,13 @@ class DosenController extends Controller
         $file_path = public_path($user->name.'/data_tugas/'.$fileName);
         return response()->download($file_path);
     }
+
+    public function updateGrade(Request $request, $menteeTaskID, $userID)
+    {
+        $menteeTask=MenteeTask::where('id', $menteeTaskID)->where('user_id',$userID)->first();
+        $menteeTask->update([
+            'grade' => $request->grade,
+        ]);
+        return redirect()->back()->with('status','Nilai siswa berhasil diupdate');
+    }
 }
