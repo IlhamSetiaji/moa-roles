@@ -24,7 +24,7 @@
                     </div>
                     @endif
                     <div class="section-header">
-                        <h1>Halaman Mahasiswa</h1>
+                        <h1>Halaman Dosen</h1>
                     </div>
 
                     <div class="section-body">
@@ -42,25 +42,29 @@
                                                         <th class="text-center">
                                                             #
                                                         </th>
+                                                        <th>Nama Mahasiswa</th>
                                                         <th>Nama Tugas</th>
-                                                        <th>Deskripsi</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($tasks as $key => $item)
+                                                    @foreach ($menteeTasks as $key => $item)
                                                     <tr>
                                                         <td>
                                                             {{ $key+1 }}
                                                         </td>
                                                         <td>
-                                                            {{ $item->name }}
+                                                            {{ $item->users->name }}
                                                         </td>
                                                         <td>
-                                                            {{ $item->description }}
+                                                            {{ $item->tasks->name }}
                                                         </td>
                                                         <td>
-                                                                <a href="{{ url('mahasiswa/'.$item->id.'/task') }}" class="btn btn-success">Detail Tugas</a>
+                                                            {{ $item->status }}
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-primary" href="{{ url('dosen/'.$item->id.'/'.$item->users->id.'/show-files') }}">Lihat List Files</a>
                                                         </td>
                                                     </tr>
                                                     @endforeach

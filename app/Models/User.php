@@ -48,4 +48,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(MasterClass::class,'master_class_user','master_class_id','user_id');
     }
+
+    public function mentee_task_files()
+    {
+        return $this->belongsToMany(MenteeTask::class,'mentee_task_files','mentee_task_id','user_id')->withPivot('file_name')->withTimestamps();
+    }
+
+    public function mentee_tasks()
+    {
+        return $this->hasMany(MenteeTask::class);
+    }
 }

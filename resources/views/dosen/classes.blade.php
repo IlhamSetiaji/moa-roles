@@ -13,6 +13,16 @@
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
+                    @if (session('status'))
+                    <div class="alert alert-warning alert-dismissible show fade">
+                        <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                            {{ session('status') }}
+                        </div>
+                    </div>
+                    @endif
                     <div class="section-header">
                         <h1>Halaman Dosen</h1>
                     </div>
@@ -52,6 +62,7 @@
                                                             {{ $item->description }}
                                                         </td>
                                                         <td>
+                                                            <a class="btn btn-primary" href="{{ url('dosen/classes/'.$item->id.'/tasks') }}">Lihat Tugas</a>
                                                             <a class="btn btn-warning" href="#" data-toggle="modal"
                                                                 data-target="#modalEditClass{{ $item->id }}">Edit</a>
                                                             <a class="btn btn-danger" href="#" data-toggle="modal"

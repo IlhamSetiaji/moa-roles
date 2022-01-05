@@ -24,7 +24,7 @@
                     </div>
                     @endif
                     <div class="section-header">
-                        <h1>Halaman Mahasiswa</h1>
+                        <h1>Halaman Dosen</h1>
                     </div>
 
                     <div class="section-body">
@@ -32,7 +32,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Data Tugas</h4>
+                                        <h4>Data File Mahasiswa</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -42,13 +42,13 @@
                                                         <th class="text-center">
                                                             #
                                                         </th>
-                                                        <th>Nama Tugas</th>
-                                                        <th>Deskripsi</th>
+                                                        <th>Nama Mahasiswa</th>
+                                                        <th>Nama File</th> 
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($tasks as $key => $item)
+                                                    @foreach ($files as $key => $item)
                                                     <tr>
                                                         <td>
                                                             {{ $key+1 }}
@@ -57,10 +57,10 @@
                                                             {{ $item->name }}
                                                         </td>
                                                         <td>
-                                                            {{ $item->description }}
+                                                            {{ $item->pivot->file_name }}
                                                         </td>
                                                         <td>
-                                                                <a href="{{ url('mahasiswa/'.$item->id.'/task') }}" class="btn btn-success">Detail Tugas</a>
+                                                            <a class="btn btn-primary" href="{{ url('dosen/task/'.$item->pivot->file_name.'/'.$item->id.'/download') }}">Download File</a>
                                                         </td>
                                                     </tr>
                                                     @endforeach

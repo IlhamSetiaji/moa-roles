@@ -43,27 +43,26 @@
                                                             #
                                                         </th>
                                                         <th>Nama Tugas</th>
-                                                        <th>Deskripsi</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($tasks as $key => $item)
                                                     <tr>
                                                         <td>
-                                                            {{ $key+1 }}
+                                                            #
                                                         </td>
                                                         <td>
-                                                            {{ $item->name }}
+                                                            {{ $menteeTasks->tasks->name }}
                                                         </td>
                                                         <td>
-                                                            {{ $item->description }}
+                                                            {{ $menteeTasks->status }}
                                                         </td>
                                                         <td>
-                                                                <a href="{{ url('mahasiswa/'.$item->id.'/task') }}" class="btn btn-success">Detail Tugas</a>
+                                                            <a class="btn btn-primary" href="#" data-toggle="modal"
+                                                                data-target="#modalUploadTask{{ $menteeTasks->id }}">Upload Tugas</a>
                                                         </td>
                                                     </tr>
-                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -77,6 +76,7 @@
             @include('stisla.footer')
         </div>
     </div>
+    @include('mahasiswa.modal.upload_task')
 @include('stisla.script')
 </body>
 
